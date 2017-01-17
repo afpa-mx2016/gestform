@@ -5,6 +5,7 @@
  */
 package gestform;
 
+import gestform.model.ECF;
 import java.util.List;
 import org.lduboeuf.gestform.dao.FormationDAO;
 import org.lduboeuf.gestform.model.Formation;
@@ -17,6 +18,8 @@ public class TestMain {
     
     public static void main(String[] args) {
         
+        ECF ecf = new ECF("ECF1","Developpement Web");
+       
         
         FormationDAO fDAO = new FormationDAO();
         List<Formation> formations = fDAO.findAll();

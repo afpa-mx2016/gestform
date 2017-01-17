@@ -23,8 +23,8 @@ public class GestForm {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Personne p1 = new Personne("Trubadu", "Jean Claude");
-        Personne p3 = new Personne("Gertrude", "Albert");
+        Personne p1 = new Personne(1,"Trubadu", "Jean Claude");
+        Personne p3 = new Personne(2,"Gertrude", "Albert");
         
         if (p1==p3){
             System.out.println("kikou");
@@ -39,7 +39,7 @@ public class GestForm {
         p2.setNom("Tardito");
         p2.setPrenom("Balui");
         
-        Stagiaire p4 = new Stagiaire("Popole", "Marcel", 00001);
+        Stagiaire p4 = new Stagiaire(8,"Popole", "Marcel", "CA999");
       
         
         Formation form = new Formation("DL16","Développeur Logiciel");

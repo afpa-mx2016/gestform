@@ -7,6 +7,7 @@ package org.lduboeuf.gestform.model;
 
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  *
@@ -14,19 +15,19 @@ import java.io.Serializable;
  */
 public class Stagiaire extends Personne implements Serializable{
     
-    int codeStagiaire;
+    String codeStagiaire;
     Formation formation;
 
-    public Stagiaire(String nom, String prenom, int codeStagiaire) {
-        super(nom, prenom);
+    public Stagiaire(int id, String nom, String prenom, String codeStagiaire) {
+        super(id, nom, prenom);
         this.codeStagiaire = codeStagiaire;
     }
 
-    public int getCodeStagiaire() {
+    public String getCodeStagiaire() {
         return codeStagiaire;
     }
 
-    public void setCodeStagiaire(int codeStagiaire) {
+    public void setCodeStagiaire(String codeStagiaire) {
         this.codeStagiaire = codeStagiaire;
     }
 
@@ -37,13 +38,12 @@ public class Stagiaire extends Personne implements Serializable{
     public void setFormation(Formation formation) {
         this.formation = formation;
     }
-    
-    
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 53 * hash + this.codeStagiaire;
+        hash = 97 * hash + Objects.hashCode(this.codeStagiaire);
+        hash = 97 * hash + Objects.hashCode(this.formation);
         return hash;
     }
 
@@ -59,10 +59,23 @@ public class Stagiaire extends Personne implements Serializable{
             return false;
         }
         final Stagiaire other = (Stagiaire) obj;
-        if (this.codeStagiaire != other.codeStagiaire) {
+        if (!Objects.equals(this.codeStagiaire, other.codeStagiaire)) {
+            return false;
+        }
+        if (!Objects.equals(this.formation, other.formation)) {
             return false;
         }
         return true;
+    }
+    
+    
+
+
+
+
+    @Override
+    public String toString() {
+        return super.toString() + " Stagiaire{" + "codeStagiaire=" + codeStagiaire + ", formation=" + formation + '}';
     }
     
     

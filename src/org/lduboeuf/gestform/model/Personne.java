@@ -6,7 +6,6 @@
 package org.lduboeuf.gestform.model;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  *
@@ -14,12 +13,14 @@ import java.util.Objects;
  */
 public class Personne implements Serializable{
     
+    private int id;
     private String nom;
     private String prenom;
 
     public Personne(){};
    
-    public Personne(String nom, String prenom) {
+    public Personne(int id,String nom, String prenom) {
+        this.id = id;
         this.nom = nom;
         this.prenom = prenom;
     }
@@ -44,23 +45,19 @@ public class Personne implements Serializable{
     public void setPrenom(String prenom) {
         this.prenom = prenom;
     }
-    
-    
-    
-    
-        
-//
-//    
-//    @Override
-//    public String toString() {
-//        return "Personne{" + "nom=" + nom + ", prenom=" + prenom + '}';
-//    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 89 * hash + Objects.hashCode(this.nom);
-        hash = 89 * hash + Objects.hashCode(this.prenom);
+        int hash = 3;
+        hash = 17 * hash + this.id;
         return hash;
     }
 
@@ -76,13 +73,21 @@ public class Personne implements Serializable{
             return false;
         }
         final Personne other = (Personne) obj;
-        if (!Objects.equals(this.nom, other.nom)) {
-            return false;
-        }
-        if (!Objects.equals(this.prenom, other.prenom)) {
+        if (this.id != other.id) {
             return false;
         }
         return true;
+    }
+    
+    
+    
+    
+        
+
+
+    @Override
+    public String toString() {
+        return "Personne{" + "nom=" + nom + ", prenom=" + prenom + '}';
     }
     
     
