@@ -5,7 +5,7 @@
  */
 package org.lduboeuf.gestform.model;
 
-import gestform.model.ECF;
+
 
 /**
  *
@@ -50,6 +50,11 @@ public class ResultECF {
 
     public void setAcquis(boolean acquis) {
         this.acquis = acquis;
+    }
+
+    @Override
+    public String toString() {
+        return "ResultECF{" + "ecf=" + ecf + ", stagiaire=" + stagiaire + ", acquis=" + acquis + '}';
     }
     
     

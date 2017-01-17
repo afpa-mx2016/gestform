@@ -79,6 +79,11 @@ public class Formation implements Serializable{
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Formation{" + "code=" + code + ", nom=" + nom + '}';
+    }
     
     
     

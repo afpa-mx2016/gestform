@@ -17,10 +17,18 @@ public class Stagiaire extends Personne implements Serializable{
     
     String codeStagiaire;
     Formation formation;
+    
+    public Stagiaire(String nom, String prenom, String codeStagiaire, Formation f) {
+        super(nom, prenom);
+        this.codeStagiaire = codeStagiaire;
+        this.formation = f;
+    }
+    
 
-    public Stagiaire(int id, String nom, String prenom, String codeStagiaire) {
+    public Stagiaire(int id, String nom, String prenom, String codeStagiaire, Formation f) {
         super(id, nom, prenom);
         this.codeStagiaire = codeStagiaire;
+        this.formation = f;
     }
 
     public String getCodeStagiaire() {

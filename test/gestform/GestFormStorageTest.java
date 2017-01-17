@@ -28,7 +28,7 @@ public class GestFormStorageTest {
     @Test
     public void serializeTest() throws Exception{
         Formation f = new Formation("DL16","Developpeur Logiciel");
-        Stagiaire s = new Stagiaire(1, "kikou", "zonote", "CA01");
+        Stagiaire s = new Stagiaire(1, "kikou", "zonote", "CA01",f);
         s.setFormation(f); //test cyclic dependancy
         f.addStagiaire(s);
         

@@ -3,27 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gestform.model;
+package org.lduboeuf.gestform.model;
 
 /**
  *
  * @author lionel
  */
 public class ECF {
-    String code;
+    
+    int id;
     String name;
+    Formation formation;
 
-    public ECF(String code, String name) {
-        this.code = code;
+    public ECF(int id, String name, Formation formation) {
+        this.id = id;
         this.name = name;
+        this.formation = formation;
     }
 
-    public String getCode() {
-        return code;
+    public int getId() {
+        return id;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -33,6 +36,20 @@ public class ECF {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Formation getFormation() {
+        return formation;
+    }
+
+    public void setFormation(Formation formation) {
+        this.formation = formation;
+    }
+
+    @Override
+    public String toString() {
+        return "ECF{" + "id=" + id + ", name=" + name + ", formation=" + formation + '}';
+    }
+    
     
     
 }

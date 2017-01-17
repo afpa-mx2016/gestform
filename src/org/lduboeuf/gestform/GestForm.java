@@ -39,10 +39,9 @@ public class GestForm {
         p2.setNom("Tardito");
         p2.setPrenom("Balui");
         
-        Stagiaire p4 = new Stagiaire(8,"Popole", "Marcel", "CA999");
-      
-        
         Formation form = new Formation("DL16","Développeur Logiciel");
+        Stagiaire p4 = new Stagiaire(8,"Popole", "Marcel", "CA999", form);
+      
         form.getStagiaires().add(p4);
         
         
