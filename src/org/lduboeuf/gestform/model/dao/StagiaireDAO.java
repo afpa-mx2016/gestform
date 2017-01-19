@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.lduboeuf.gestform.dao;
+package org.lduboeuf.gestform.model.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,7 +22,7 @@ import org.lduboeuf.gestform.model.Stagiaire;
 public class StagiaireDAO {
 
 
-    public List<Stagiaire> findAll(Formation formation) {
+    public static List<Stagiaire> findAll(Formation formation) {
        Connection connection = ConnectDB.getConnection();
         
         List<Stagiaire> stagiaires = new ArrayList<>();
@@ -47,7 +47,7 @@ public class StagiaireDAO {
             rs.close();
 
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
 
         return stagiaires;
@@ -59,7 +59,7 @@ public class StagiaireDAO {
     }
 
 
-    public void save(Stagiaire s) throws Exception {
+    public void save(Stagiaire s) throws AlreadyExistException, Exception {
         Connection connection = ConnectDB.getConnection();
 
         PreparedStatement stmCreatePersonne;
@@ -91,8 +91,14 @@ public class StagiaireDAO {
             stmCreateStagiaire.close();
 
         } catch (SQLException e) {
+            
             //pb if here
             connection.rollback();
+            
+            if (e.getErrorCode()==2){
+                throw new AlreadyExistException();
+            }
+            
             throw new Exception("error while creating personne " + e.getMessage());
         }
     }

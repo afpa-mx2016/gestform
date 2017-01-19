@@ -9,10 +9,9 @@ package gestform;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.lduboeuf.gestform.dao.ECFDAO;
-import org.lduboeuf.gestform.dao.FormationDAO;
-import org.lduboeuf.gestform.dao.StagiaireDAO;
-import org.lduboeuf.gestform.model.ECF;
+import org.lduboeuf.gestform.model.dao.ECFDAO;
+import org.lduboeuf.gestform.model.dao.FormationDAO;
+import org.lduboeuf.gestform.model.dao.StagiaireDAO;
 import org.lduboeuf.gestform.model.Formation;
 import org.lduboeuf.gestform.model.ResultECF;
 import org.lduboeuf.gestform.model.Stagiaire;
@@ -58,6 +57,8 @@ public class TestMain {
         for (ResultECF res: ecfs){
             System.out.println(res);
         }
+        
+        
     }
     
 }

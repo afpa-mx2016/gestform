@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.lduboeuf.gestform.dao;
+package org.lduboeuf.gestform.model.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.lduboeuf.gestform.model.Formation;
 
@@ -21,7 +22,7 @@ import org.lduboeuf.gestform.model.Formation;
 public class FormationDAO{
 
 
-    public List<Formation> findAll() {
+    public static List<Formation> findAll() {
         
         Connection connection = ConnectDB.getConnection();
         
@@ -36,15 +37,19 @@ public class FormationDAO{
             while (rs.next()) {
                 String code = rs.getString("code");
                 String nom = rs.getString("nom");
+                Date dateDeb = rs.getTimestamp("date_debut");
+                Date dateFin = rs.getTimestamp("date_fin");
                 
                 Formation f = new Formation(code, nom);
+                f.setDateDebut(dateDeb);
+                f.setDateFin(dateFin);
                 
                 formations.add(f);
             }
             rs.close();
 
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
 
         return formations;
@@ -56,7 +61,7 @@ public class FormationDAO{
      * @param formation code
      * @return null if not found
      */
-    public Formation findBy(String code) {
+    public static Formation findBy(String code) {
         Formation f = null;
         Connection connection = ConnectDB.getConnection();
         PreparedStatement stm;
@@ -71,7 +76,7 @@ public class FormationDAO{
  
 
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
 
         return f;

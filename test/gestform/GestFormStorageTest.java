@@ -11,7 +11,7 @@ import java.sql.Connection;
 import org.junit.Assert;
 import org.junit.Test;
 import org.lduboeuf.gestform.FormationStorage;
-import org.lduboeuf.gestform.dao.ConnectDB;
+import org.lduboeuf.gestform.model.dao.ConnectDB;
 import org.lduboeuf.gestform.model.Formation;
 
 /**

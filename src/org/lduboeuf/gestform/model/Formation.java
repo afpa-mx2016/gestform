@@ -7,6 +7,7 @@ package org.lduboeuf.gestform.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,6 +19,9 @@ public class Formation implements Serializable{
     
     private String code;
     private String nom;
+    private Date dateDebut;
+    private Date dateFin;
+    
     private List<Stagiaire> stagiaires = new ArrayList<>();
 
     public Formation(String code, String nom) {
@@ -54,6 +58,24 @@ public class Formation implements Serializable{
     public void setStagiaires(List<Stagiaire> stagiaires) {
         this.stagiaires = stagiaires;
     }
+
+    public Date getDateDebut() {
+        return dateDebut;
+    }
+
+    public void setDateDebut(Date dateDebut) {
+        this.dateDebut = dateDebut;
+    }
+
+    public Date getDateFin() {
+        return dateFin;
+    }
+
+    public void setDateFin(Date dateFin) {
+        this.dateFin = dateFin;
+    }
+    
+    
 
     @Override
     public int hashCode() {
