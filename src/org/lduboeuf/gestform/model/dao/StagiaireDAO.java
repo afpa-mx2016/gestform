@@ -59,7 +59,7 @@ public class StagiaireDAO {
     }
 
 
-    public void save(Stagiaire s) throws AlreadyExistException, Exception {
+    public static void save(Stagiaire s) throws Exception {
         Connection connection = ConnectDB.getConnection();
 
         PreparedStatement stmCreatePersonne;
@@ -95,9 +95,6 @@ public class StagiaireDAO {
             //pb if here
             connection.rollback();
             
-            if (e.getErrorCode()==2){
-                throw new AlreadyExistException();
-            }
             
             throw new Exception("error while creating personne " + e.getMessage());
         }

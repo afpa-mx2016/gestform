@@ -29,6 +29,11 @@ class StagiairesTableModel extends AbstractTableModel {
     public void setModel(List<Stagiaire> stagiaires) {
         this.stagiaires = stagiaires;
     }
+    
+    public void addStagiaire(Stagiaire stagiaire){
+        this.stagiaires.add(stagiaire);
+        this.fireTableDataChanged();
+    }
 
     @Override
     public String getColumnName(int column) {
