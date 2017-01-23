@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import org.lduboeuf.gestform.model.Formation;
 import org.lduboeuf.gestform.model.Stagiaire;
+import org.lduboeuf.gestform.model.dao.ECFDAO;
 import org.lduboeuf.gestform.model.dao.StagiaireDAO;
 
 /**
@@ -26,6 +27,7 @@ public class StagiaireForm extends javax.swing.JDialog implements FocusListener 
     private Formation currentFormation;
     private Stagiaire currentStagiaire;
     private StagiaireFormEventListener listener;
+    
     /**
      * Creates new form StagiaireForm
      */
@@ -39,6 +41,7 @@ public class StagiaireForm extends javax.swing.JDialog implements FocusListener 
         txtNom.addFocusListener(this);
         txtPrenom.addFocusListener(this);
         txtMatricule.addFocusListener(this);
+        
         
         this.setSize(400, 300);
         //centrer par rapport au parent
@@ -69,6 +72,10 @@ public class StagiaireForm extends javax.swing.JDialog implements FocusListener 
         txtMatricule.setEnabled(false);
         txtNom.setText(stag.getNom());
         txtPrenom.setText(stag.getPrenom());
+        
+
+        
+        
     }
     
     
@@ -168,6 +175,7 @@ public class StagiaireForm extends javax.swing.JDialog implements FocusListener 
         panelStagiaireActions = new javax.swing.JPanel();
         btnOK = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
+        panelCenter = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         lblMessage = new javax.swing.JLabel();
 
@@ -214,13 +222,17 @@ public class StagiaireForm extends javax.swing.JDialog implements FocusListener 
 
         getContentPane().add(panelStagiaireActions, java.awt.BorderLayout.SOUTH);
 
+        panelCenter.setLayout(new javax.swing.BoxLayout(panelCenter, javax.swing.BoxLayout.LINE_AXIS));
+
         lblMessage.setForeground(new java.awt.Color(255, 0, 0));
         lblMessage.setMaximumSize(null);
         lblMessage.setMinimumSize(null);
         lblMessage.setPreferredSize(null);
         jScrollPane1.setViewportView(lblMessage);
 
-        getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        panelCenter.add(jScrollPane1);
+
+        getContentPane().add(panelCenter, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -291,6 +303,7 @@ public class StagiaireForm extends javax.swing.JDialog implements FocusListener 
     private javax.swing.JLabel lblMessage;
     private javax.swing.JLabel lblNom;
     private javax.swing.JLabel lblPrenom;
+    private javax.swing.JPanel panelCenter;
     private javax.swing.JPanel panelStagiaireActions;
     private javax.swing.JPanel panelStagiaireFields;
     private javax.swing.JTextField txtMatricule;

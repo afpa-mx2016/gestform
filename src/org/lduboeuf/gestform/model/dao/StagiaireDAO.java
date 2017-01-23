@@ -54,8 +54,29 @@ public class StagiaireDAO {
     }
 
 
-    public Stagiaire findBy(Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public static  Stagiaire findBy(int personId) {
+        
+        Stagiaire stag = null;
+        Connection connection = ConnectDB.getConnection();
+        PreparedStatement stm;
+        try {
+            stm = connection.prepareStatement("select * from stagiaire inner join personne on stagiaire.personne_id = personne.id WHERE personne_id= ?");
+            stm.setInt(1, personId);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                Formation f = FormationDAO.findBy(rs.getString("formation_code"));
+        
+                stag = new Stagiaire(rs.getInt("id"), rs.getString("nom"), rs.getString("prenom"), rs.getString("code"), f);
+            }
+            
+ 
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return stag;
+
     }
 
 

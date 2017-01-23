@@ -28,6 +28,7 @@ class StagiairesTableModel extends AbstractTableModel {
     
     public void setModel(List<Stagiaire> stagiaires) {
         this.stagiaires = stagiaires;
+        fireTableDataChanged();
     }
     
     public void addStagiaire(Stagiaire stagiaire){
