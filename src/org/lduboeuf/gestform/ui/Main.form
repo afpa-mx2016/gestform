@@ -66,7 +66,7 @@
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="actionsContainer">
+    <Container class="javax.swing.JPanel" name="panelFooter">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
           <BorderConstraints direction="South"/>
@@ -77,8 +77,13 @@
         <Property name="alignment" type="int" value="2"/>
       </Layout>
     </Container>
-    <Container class="javax.swing.JPanel" name="formationListContainer">
+    <Container class="javax.swing.JPanel" name="panelFormationList">
       <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder title="Formations"/>
+          </Border>
+        </Property>
         <Property name="name" type="java.lang.String" value="" noResource="true"/>
       </Properties>
       <Constraints>
@@ -124,9 +129,17 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JButton" name="btnAjoutFormation">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Cr&#xe9;er une formation"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAjoutFormationActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="formationDetailsContainer">
+    <Container class="javax.swing.JPanel" name="panelFormationDetails">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
           <BorderConstraints direction="Center"/>
@@ -137,7 +150,7 @@
         <Property name="axis" type="int" value="1"/>
       </Layout>
       <SubComponents>
-        <Container class="javax.swing.JPanel" name="formDetailsFields">
+        <Container class="javax.swing.JPanel" name="panelFormDetailsFields">
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
             <Property name="columns" type="int" value="2"/>
@@ -186,7 +199,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="formDetailsActions">
+        <Container class="javax.swing.JPanel" name="panelFormDetailsActions">
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout">
             <Property name="alignment" type="int" value="2"/>
@@ -203,17 +216,19 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="listStagiaireContainer">
+        <Container class="javax.swing.JPanel" name="panelStagiairesList">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                <TitledBorder title="Stagiaires"/>
+              </Border>
+            </Property>
+          </Properties>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout">
             <Property name="axis" type="int" value="1"/>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="jLabel2">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Liste des stagiaires"/>
-              </Properties>
-            </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane2">
               <AuxValues>
                 <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
@@ -239,19 +254,33 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="btnAjoutStagiaire">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Ajouter un stagiaire"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAjoutStagiaireActionPerformed"/>
-              </Events>
-            </Component>
+            <Container class="javax.swing.JPanel" name="jPanel1">
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+              <SubComponents>
+                <Component class="javax.swing.JButton" name="btnAjoutStagiaire">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Ajouter un stagiaire"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAjoutStagiaireActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="btnMajStagiaire">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Modifier le stagiaire"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMajStagiaireActionPerformed"/>
+                  </Events>
+                </Component>
+              </SubComponents>
+            </Container>
           </SubComponents>
         </Container>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="formationListHeadContainer">
+    <Container class="javax.swing.JPanel" name="panelHeader">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
           <BorderConstraints direction="First"/>
@@ -261,21 +290,6 @@
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout">
         <Property name="alignment" type="int" value="0"/>
       </Layout>
-      <SubComponents>
-        <Component class="javax.swing.JLabel" name="lblListFormation">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Liste des formations:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnAjoutFormation">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Cr&#xe9;er une formation"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAjoutFormationActionPerformed"/>
-          </Events>
-        </Component>
-      </SubComponents>
     </Container>
   </SubComponents>
 </Form>

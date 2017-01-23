@@ -50,7 +50,7 @@ class StagiairesTableModel extends AbstractTableModel {
         return entetes.length;
     }
 
-    public Stagiaire getFormation(int rowIndex){
+    public Stagiaire getStagiaire(int rowIndex){
         return stagiaires.get(rowIndex);
     }
     

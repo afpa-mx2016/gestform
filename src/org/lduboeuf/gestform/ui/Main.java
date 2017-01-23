@@ -8,6 +8,7 @@ package org.lduboeuf.gestform.ui;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import org.lduboeuf.gestform.model.Formation;
@@ -36,7 +37,10 @@ public class Main extends javax.swing.JFrame implements StagiaireForm.StagiaireF
         initComponents();
         
         //ne pas afficher le détails de la formation si rien de selectionné dans la liste
-        formationDetailsContainer.setVisible(false);
+        panelFormationDetails.setVisible(false);
+        // par défaut le bouton modifier stagiaire ne doit pas être cliquable
+        btnMajStagiaire.setEnabled(false);
+        
         
         tblFormations.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -51,19 +55,32 @@ public class Main extends javax.swing.JFrame implements StagiaireForm.StagiaireF
             }
         });
         
+        //on ecoute les évenments sur le clique d'une ligne du tableau, exemple utilisation des Lambdas ( java >= 1.8)
+        tblListeStagiaires.getSelectionModel().addListSelectionListener((ListSelectionEvent e) -> {
+            btnMajStagiaire.setEnabled(true);
+        });
+        
     }
     
+    /**
+     * affiche le détail d'une formation
+     * @param formation 
+     */
     private void displayFormationDetails(Formation formation){
+        
          DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+         
+         
         txtCode.setText(formation.getCode());
         txtNom.setText(formation.getNom());
         txtDateDeb.setText(df.format(formation.getDateDebut()));
         txtDateFin.setText(df.format(formation.getDateFin()));
 
         listStagiairesModel.setModel(StagiaireDAO.findAll(formation));
+        
         listStagiairesModel.fireTableDataChanged();
         
-        formationDetailsContainer.setVisible(true);
+        panelFormationDetails.setVisible(true);
     }
     
     private void clearFormationDetails(){
@@ -85,12 +102,13 @@ public class Main extends javax.swing.JFrame implements StagiaireForm.StagiaireF
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        actionsContainer = new javax.swing.JPanel();
-        formationListContainer = new javax.swing.JPanel();
+        panelFooter = new javax.swing.JPanel();
+        panelFormationList = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblFormations = new javax.swing.JTable();
-        formationDetailsContainer = new javax.swing.JPanel();
-        formDetailsFields = new javax.swing.JPanel();
+        btnAjoutFormation = new javax.swing.JButton();
+        panelFormationDetails = new javax.swing.JPanel();
+        panelFormDetailsFields = new javax.swing.JPanel();
         lblCode = new javax.swing.JLabel();
         txtCode = new javax.swing.JTextField();
         lblNom = new javax.swing.JLabel();
@@ -99,16 +117,15 @@ public class Main extends javax.swing.JFrame implements StagiaireForm.StagiaireF
         txtDateDeb = new javax.swing.JTextField();
         lblDateFin = new javax.swing.JLabel();
         txtDateFin = new javax.swing.JTextField();
-        formDetailsActions = new javax.swing.JPanel();
+        panelFormDetailsActions = new javax.swing.JPanel();
         btnActionFormDetail = new javax.swing.JButton();
-        listStagiaireContainer = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        panelStagiairesList = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblListeStagiaires = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
         btnAjoutStagiaire = new javax.swing.JButton();
-        formationListHeadContainer = new javax.swing.JPanel();
-        lblListFormation = new javax.swing.JLabel();
-        btnAjoutFormation = new javax.swing.JButton();
+        btnMajStagiaire = new javax.swing.JButton();
+        panelHeader = new javax.swing.JPanel();
         menu = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuFileFermer = new javax.swing.JMenuItem();
@@ -119,11 +136,12 @@ public class Main extends javax.swing.JFrame implements StagiaireForm.StagiaireF
         setTitle("GestForm");
         setPreferredSize(new java.awt.Dimension(1024, 800));
 
-        actionsContainer.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
-        getContentPane().add(actionsContainer, java.awt.BorderLayout.SOUTH);
+        panelFooter.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+        getContentPane().add(panelFooter, java.awt.BorderLayout.SOUTH);
 
-        formationListContainer.setName(""); // NOI18N
-        formationListContainer.setLayout(new javax.swing.BoxLayout(formationListContainer, javax.swing.BoxLayout.Y_AXIS));
+        panelFormationList.setBorder(javax.swing.BorderFactory.createTitledBorder("Formations"));
+        panelFormationList.setName(""); // NOI18N
+        panelFormationList.setLayout(new javax.swing.BoxLayout(panelFormationList, javax.swing.BoxLayout.Y_AXIS));
 
         jScrollPane1.setMaximumSize(null);
         jScrollPane1.setMinimumSize(null);
@@ -132,16 +150,24 @@ public class Main extends javax.swing.JFrame implements StagiaireForm.StagiaireF
         tblFormations.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tblFormations);
 
-        formationListContainer.add(jScrollPane1);
+        panelFormationList.add(jScrollPane1);
 
-        getContentPane().add(formationListContainer, java.awt.BorderLayout.WEST);
+        btnAjoutFormation.setText("Créer une formation");
+        btnAjoutFormation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAjoutFormationActionPerformed(evt);
+            }
+        });
+        panelFormationList.add(btnAjoutFormation);
 
-        formationDetailsContainer.setLayout(new javax.swing.BoxLayout(formationDetailsContainer, javax.swing.BoxLayout.Y_AXIS));
+        getContentPane().add(panelFormationList, java.awt.BorderLayout.WEST);
 
-        formDetailsFields.setLayout(new java.awt.GridLayout(5, 2));
+        panelFormationDetails.setLayout(new javax.swing.BoxLayout(panelFormationDetails, javax.swing.BoxLayout.Y_AXIS));
+
+        panelFormDetailsFields.setLayout(new java.awt.GridLayout(5, 2));
 
         lblCode.setText("code:");
-        formDetailsFields.add(lblCode);
+        panelFormDetailsFields.add(lblCode);
 
         txtCode.setToolTipText("");
         txtCode.addActionListener(new java.awt.event.ActionListener() {
@@ -149,31 +175,31 @@ public class Main extends javax.swing.JFrame implements StagiaireForm.StagiaireF
                 txtCodeActionPerformed(evt);
             }
         });
-        formDetailsFields.add(txtCode);
+        panelFormDetailsFields.add(txtCode);
 
         lblNom.setText("nom:");
-        formDetailsFields.add(lblNom);
+        panelFormDetailsFields.add(lblNom);
 
         txtNom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNomActionPerformed(evt);
             }
         });
-        formDetailsFields.add(txtNom);
+        panelFormDetailsFields.add(txtNom);
 
         lblDateDeb.setText("date début:");
-        formDetailsFields.add(lblDateDeb);
-        formDetailsFields.add(txtDateDeb);
+        panelFormDetailsFields.add(lblDateDeb);
+        panelFormDetailsFields.add(txtDateDeb);
 
         lblDateFin.setText("date fin:");
-        formDetailsFields.add(lblDateFin);
+        panelFormDetailsFields.add(lblDateFin);
 
         txtDateFin.setToolTipText("");
-        formDetailsFields.add(txtDateFin);
+        panelFormDetailsFields.add(txtDateFin);
 
-        formationDetailsContainer.add(formDetailsFields);
+        panelFormationDetails.add(panelFormDetailsFields);
 
-        formDetailsActions.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+        panelFormDetailsActions.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
         btnActionFormDetail.setText("Mettre à jour");
         btnActionFormDetail.setToolTipText("");
@@ -182,20 +208,18 @@ public class Main extends javax.swing.JFrame implements StagiaireForm.StagiaireF
                 btnActionFormDetailActionPerformed(evt);
             }
         });
-        formDetailsActions.add(btnActionFormDetail);
+        panelFormDetailsActions.add(btnActionFormDetail);
 
-        formationDetailsContainer.add(formDetailsActions);
+        panelFormationDetails.add(panelFormDetailsActions);
 
-        listStagiaireContainer.setLayout(new javax.swing.BoxLayout(listStagiaireContainer, javax.swing.BoxLayout.Y_AXIS));
-
-        jLabel2.setText("Liste des stagiaires");
-        listStagiaireContainer.add(jLabel2);
+        panelStagiairesList.setBorder(javax.swing.BorderFactory.createTitledBorder("Stagiaires"));
+        panelStagiairesList.setLayout(new javax.swing.BoxLayout(panelStagiairesList, javax.swing.BoxLayout.Y_AXIS));
 
         tblListeStagiaires.setModel(listStagiairesModel);
         tblListeStagiaires.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(tblListeStagiaires);
 
-        listStagiaireContainer.add(jScrollPane2);
+        panelStagiairesList.add(jScrollPane2);
 
         btnAjoutStagiaire.setText("Ajouter un stagiaire");
         btnAjoutStagiaire.addActionListener(new java.awt.event.ActionListener() {
@@ -203,26 +227,24 @@ public class Main extends javax.swing.JFrame implements StagiaireForm.StagiaireF
                 btnAjoutStagiaireActionPerformed(evt);
             }
         });
-        listStagiaireContainer.add(btnAjoutStagiaire);
+        jPanel1.add(btnAjoutStagiaire);
 
-        formationDetailsContainer.add(listStagiaireContainer);
-
-        getContentPane().add(formationDetailsContainer, java.awt.BorderLayout.CENTER);
-
-        formationListHeadContainer.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
-
-        lblListFormation.setText("Liste des formations:");
-        formationListHeadContainer.add(lblListFormation);
-
-        btnAjoutFormation.setText("Créer une formation");
-        btnAjoutFormation.addActionListener(new java.awt.event.ActionListener() {
+        btnMajStagiaire.setText("Modifier le stagiaire");
+        btnMajStagiaire.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAjoutFormationActionPerformed(evt);
+                btnMajStagiaireActionPerformed(evt);
             }
         });
-        formationListHeadContainer.add(btnAjoutFormation);
+        jPanel1.add(btnMajStagiaire);
 
-        getContentPane().add(formationListHeadContainer, java.awt.BorderLayout.PAGE_START);
+        panelStagiairesList.add(jPanel1);
+
+        panelFormationDetails.add(panelStagiairesList);
+
+        getContentPane().add(panelFormationDetails, java.awt.BorderLayout.CENTER);
+
+        panelHeader.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        getContentPane().add(panelHeader, java.awt.BorderLayout.PAGE_START);
 
         menuFile.setText("Fichier");
         menuFile.setName("FermerItem"); // NOI18N
@@ -286,6 +308,21 @@ public class Main extends javax.swing.JFrame implements StagiaireForm.StagiaireF
         stagiaireForm.setVisible(true);
     }//GEN-LAST:event_btnAjoutStagiaireActionPerformed
 
+    private void btnMajStagiaireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMajStagiaireActionPerformed
+        
+        int selectedRow = tblListeStagiaires.getSelectedRow();
+        if (selectedRow==-1){
+             JOptionPane.showMessageDialog(null, "Aucun stagiaire de selectionné, ", "selection stagiaire", JOptionPane.INFORMATION_MESSAGE); 
+             return;
+            
+        }
+        Stagiaire selectedStagiaire = listStagiairesModel.getStagiaire(tblListeStagiaires.getSelectedRow());
+        
+        StagiaireForm stagiaireForm = new StagiaireForm(this, true, selectedFormation, this);
+        stagiaireForm.setStagiaire(selectedStagiaire);
+        stagiaireForm.setVisible(true);
+    }//GEN-LAST:event_btnMajStagiaireActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -323,28 +360,28 @@ public class Main extends javax.swing.JFrame implements StagiaireForm.StagiaireF
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem MenuItemAbout;
-    private javax.swing.JPanel actionsContainer;
     private javax.swing.JButton btnActionFormDetail;
     private javax.swing.JButton btnAjoutFormation;
     private javax.swing.JButton btnAjoutStagiaire;
-    private javax.swing.JPanel formDetailsActions;
-    private javax.swing.JPanel formDetailsFields;
-    private javax.swing.JPanel formationDetailsContainer;
-    private javax.swing.JPanel formationListContainer;
-    private javax.swing.JPanel formationListHeadContainer;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton btnMajStagiaire;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblCode;
     private javax.swing.JLabel lblDateDeb;
     private javax.swing.JLabel lblDateFin;
-    private javax.swing.JLabel lblListFormation;
     private javax.swing.JLabel lblNom;
-    private javax.swing.JPanel listStagiaireContainer;
     private javax.swing.JMenuBar menu;
     private javax.swing.JMenu menuFile;
     private javax.swing.JMenuItem menuFileFermer;
+    private javax.swing.JPanel panelFooter;
+    private javax.swing.JPanel panelFormDetailsActions;
+    private javax.swing.JPanel panelFormDetailsFields;
+    private javax.swing.JPanel panelFormationDetails;
+    private javax.swing.JPanel panelFormationList;
+    private javax.swing.JPanel panelHeader;
+    private javax.swing.JPanel panelStagiairesList;
     private javax.swing.JTable tblFormations;
     private javax.swing.JTable tblListeStagiaires;
     private javax.swing.JTextField txtCode;
@@ -360,6 +397,6 @@ public class Main extends javax.swing.JFrame implements StagiaireForm.StagiaireF
 
     @Override
     public void onUpdatedStagiaire(Stagiaire s) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        listStagiairesModel.fireTableDataChanged();
     }
 }

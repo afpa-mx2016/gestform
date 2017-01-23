@@ -29,7 +29,7 @@
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="formStagiaireFields">
+    <Container class="javax.swing.JPanel" name="panelStagiaireFields">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
           <BorderConstraints direction="North"/>
@@ -41,6 +41,13 @@
         <Property name="rows" type="int" value="3"/>
       </Layout>
       <SubComponents>
+        <Component class="javax.swing.JLabel" name="lblMatricule">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="matricule:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtMatricule">
+        </Component>
         <Component class="javax.swing.JLabel" name="lblNom">
           <Properties>
             <Property name="text" type="java.lang.String" value="nom:"/>
@@ -57,16 +64,9 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtPrenom">
         </Component>
-        <Component class="javax.swing.JLabel" name="lblMatricule">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="matricule:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtMatricule">
-        </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="formStagiaireActions">
+    <Container class="javax.swing.JPanel" name="panelStagiaireActions">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
           <BorderConstraints direction="South"/>
@@ -91,6 +91,33 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelActionPerformed"/>
           </Events>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
+          <BorderConstraints direction="Center"/>
+        </Constraint>
+      </Constraints>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="lblMessage">
+          <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="ff" type="rgb"/>
+            </Property>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="null"/>
+            </Property>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="null"/>
+            </Property>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="null"/>
+            </Property>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
