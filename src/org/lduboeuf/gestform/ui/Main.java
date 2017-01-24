@@ -8,12 +8,23 @@ package org.lduboeuf.gestform.ui;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.swing.JRViewer;
 import org.lduboeuf.gestform.model.ECF;
 import org.lduboeuf.gestform.model.Formation;
 import org.lduboeuf.gestform.model.Stagiaire;
+import org.lduboeuf.gestform.model.dao.ConnectDB;
 import org.lduboeuf.gestform.model.dao.ECFDAO;
 import org.lduboeuf.gestform.model.dao.FormationDAO;
 import org.lduboeuf.gestform.model.dao.StagiaireDAO;
@@ -92,7 +103,7 @@ public class Main extends javax.swing.JFrame implements StagiaireForm.StagiaireF
         tblECFModel.addRow(new ECF(-1, "", formation)); //ajout d'un faux ECF pour permettre l'ajout depuis la liste
 
         btnAjoutStagiaire.setEnabled(true);
-        panelFormationDetails.setVisible(true);
+        panelFormationDetails.setEnabled(true);
     }
     
     private void clearFormationDetails(){
@@ -151,6 +162,8 @@ public class Main extends javax.swing.JFrame implements StagiaireForm.StagiaireF
         menu = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuFileFermer = new javax.swing.JMenuItem();
+        menuEtat = new javax.swing.JMenu();
+        menuRapportResultECF = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         MenuItemAbout = new javax.swing.JMenuItem();
 
@@ -299,6 +312,19 @@ public class Main extends javax.swing.JFrame implements StagiaireForm.StagiaireF
 
         menu.add(menuFile);
 
+        menuEtat.setText("Rapports");
+        menuEtat.setToolTipText("");
+
+        menuRapportResultECF.setText("Résultat ECF");
+        menuRapportResultECF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuRapportResultECFActionPerformed(evt);
+            }
+        });
+        menuEtat.add(menuRapportResultECF);
+
+        menu.add(menuEtat);
+
         jMenu3.setText("?");
 
         MenuItemAbout.setText("A propos");
@@ -374,6 +400,36 @@ public class Main extends javax.swing.JFrame implements StagiaireForm.StagiaireF
         ecfResult.setVisible(true);
     }//GEN-LAST:event_btnAfficheECFActionPerformed
 
+    private void menuRapportResultECFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRapportResultECFActionPerformed
+        if (tblFormations.getSelectedRow()==-1){
+            JOptionPane.showMessageDialog(null, "vous devez selectionner une formation afin d'afficher le rapport ", "selection stagiaire", JOptionPane.INFORMATION_MESSAGE); 
+             return;
+        }
+        
+        Formation form = tblFormationModel.getFormation(tblFormations.getSelectedRow());
+        
+        try {
+            JasperReport report = (JasperReport) JRLoader.loadObject(getClass().getResource("/reports/ecf_result.jasper"));
+            //pour éviter l'import de fonts
+            report.setProperty("net.sf.jasperreports.awt.ignore.missing.font", "false");
+            report.setProperty("net.sf.jasperreports.default.font.name=SansSerif", "true");
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("formation_code", form.getCode());
+            
+            JasperPrint jPrint = JasperFillManager.fillReport(report, params, ConnectDB.getConnection());
+            
+            JFrame pdfFrame = new JFrame("Rapport");
+            pdfFrame.getContentPane().add(new JRViewer(jPrint));
+            pdfFrame.pack();
+            pdfFrame.setSize(this.getSize());
+            pdfFrame.setVisible(true);
+        
+        
+        } catch (JRException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_menuRapportResultECFActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -427,8 +483,10 @@ public class Main extends javax.swing.JFrame implements StagiaireForm.StagiaireF
     private javax.swing.JLabel lblDateFin;
     private javax.swing.JLabel lblNom;
     private javax.swing.JMenuBar menu;
+    private javax.swing.JMenu menuEtat;
     private javax.swing.JMenu menuFile;
     private javax.swing.JMenuItem menuFileFermer;
+    private javax.swing.JMenuItem menuRapportResultECF;
     private javax.swing.JPanel panelFooter;
     private javax.swing.JPanel panelFormDetailsActions;
     private javax.swing.JPanel panelFormDetailsFields;

@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 17, 2017 at 03:57 PM
--- Server version: 5.7.16-0ubuntu0.16.04.1
+-- Generation Time: Jan 24, 2017 at 02:19 PM
+-- Server version: 5.7.17-0ubuntu0.16.04.1
 -- PHP Version: 7.0.8-0ubuntu0.16.04.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -37,7 +37,10 @@ CREATE TABLE `ecf` (
 --
 
 INSERT INTO `ecf` (`id`, `nom`, `formation_code`) VALUES
-(1, 'Developpement Web', 'DL16');
+(1, 'Developpement Web', 'DL16'),
+(3, 'Interface utilisateur', 'DL16'),
+(4, 'Conception BDD', 'DL16')
+
 
 -- --------------------------------------------------------
 
@@ -57,6 +60,7 @@ CREATE TABLE `formation` (
 --
 
 INSERT INTO `formation` (`code`, `nom`, `date_debut`, `date_fin`) VALUES
+('CR16', 'Crépier', '2016-10-03', '2017-05-23'),
 ('DL16', 'Développeur Logiciel', '2016-10-03', '2017-05-23');
 
 -- --------------------------------------------------------
@@ -71,20 +75,7 @@ CREATE TABLE `personne` (
   `prenom` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `personne`
---
 
-INSERT INTO `personne` (`id`, `nom`, `prenom`) VALUES
-(3, 'duclou', 'alfred'),
-(4, 'duclou', 'alfred'),
-(5, 'duclou', 'alfred'),
-(6, 'duclou', 'alfred'),
-(7, 'duclou', 'alfred'),
-(8, 'duclou', 'alfred'),
-(9, 'duclou', 'alfred'),
-(13, 'duclou', 'alfred'),
-(16, 'duclou', 'alfred');
 
 -- --------------------------------------------------------
 
@@ -98,12 +89,7 @@ CREATE TABLE `result_ecf` (
   `ecf_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `result_ecf`
---
 
-INSERT INTO `result_ecf` (`acquis`, `stagiaire_code`, `ecf_id`) VALUES
-(0, '001C0997', 1);
 
 -- --------------------------------------------------------
 
@@ -117,14 +103,15 @@ CREATE TABLE `stagiaire` (
   `formation_code` char(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `stagiaire`
---
 
-INSERT INTO `stagiaire` (`personne_id`, `code`, `formation_code`) VALUES
-(16, '001C0997', 'DL16'),
-(13, '001C0998', 'DL16'),
-(9, '001C0999', 'DL16');
+
+--
+-- Triggers `stagiaire`
+--
+DELIMITER $$
+CREATE TRIGGER `stag_init_ecf` AFTER INSERT ON `stagiaire` FOR EACH ROW INSERT INTO result_ecf (stagiaire_code, ecf_id, acquis) SELECT new.code, id, false FROM ecf WHERE formation_code = new.formation_code
+$$
+DELIMITER ;
 
 --
 -- Indexes for dumped tables
@@ -168,12 +155,12 @@ ALTER TABLE `stagiaire`
 -- AUTO_INCREMENT for table `ecf`
 --
 ALTER TABLE `ecf`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `personne`
 --
 ALTER TABLE `personne`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
