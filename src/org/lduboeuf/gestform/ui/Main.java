@@ -150,8 +150,10 @@ public class Main extends javax.swing.JFrame implements StagiaireForm.StagiaireF
         txtDateFin = new javax.swing.JTextField();
         panelFormDetailsActions = new javax.swing.JPanel();
         btnActionFormDetail = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
         panelStagiairesList = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblListeStagiaires = new javax.swing.JTable();
@@ -163,8 +165,6 @@ public class Main extends javax.swing.JFrame implements StagiaireForm.StagiaireF
         menu = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuFileFermer = new javax.swing.JMenuItem();
-        menuEtat = new javax.swing.JMenu();
-        menuRapportResultECF = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         MenuItemAbout = new javax.swing.JMenuItem();
 
@@ -250,12 +250,32 @@ public class Main extends javax.swing.JFrame implements StagiaireForm.StagiaireF
 
         panelFormationDetails.add(panelFormDetailsActions);
 
-        jScrollPane3.setBorder(javax.swing.BorderFactory.createTitledBorder("ECF"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("ECF"));
+        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.Y_AXIS));
+
+        jScrollPane3.setBorder(null);
 
         jTable1.setModel(tblECFModel);
+        jTable1.setAlignmentX(0.0F);
+        jTable1.setAlignmentY(0.0F);
+        jTable1.setAutoscrolls(false);
         jScrollPane3.setViewportView(jTable1);
 
-        panelFormationDetails.add(jScrollPane3);
+        jPanel2.add(jScrollPane3);
+
+        jButton1.setText("Rapport résultats ECF");
+        jButton1.setToolTipText("");
+        jButton1.setHideActionText(true);
+        jButton1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton1);
+
+        panelFormationDetails.add(jPanel2);
 
         panelStagiairesList.setBorder(javax.swing.BorderFactory.createTitledBorder("Stagiaires"));
         panelStagiairesList.setLayout(new javax.swing.BoxLayout(panelStagiairesList, javax.swing.BoxLayout.Y_AXIS));
@@ -312,19 +332,6 @@ public class Main extends javax.swing.JFrame implements StagiaireForm.StagiaireF
         menuFile.add(menuFileFermer);
 
         menu.add(menuFile);
-
-        menuEtat.setText("Rapports");
-        menuEtat.setToolTipText("");
-
-        menuRapportResultECF.setText("Résultat ECF");
-        menuRapportResultECF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuRapportResultECFActionPerformed(evt);
-            }
-        });
-        menuEtat.add(menuRapportResultECF);
-
-        menu.add(menuEtat);
 
         jMenu3.setText("?");
 
@@ -401,12 +408,8 @@ public class Main extends javax.swing.JFrame implements StagiaireForm.StagiaireF
         ecfResult.setVisible(true);
     }//GEN-LAST:event_btnAfficheECFActionPerformed
 
-    private void menuRapportResultECFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRapportResultECFActionPerformed
-        if (tblFormations.getSelectedRow()==-1){
-            JOptionPane.showMessageDialog(null, "vous devez selectionner une formation afin d'afficher le rapport ", "selection stagiaire", JOptionPane.INFORMATION_MESSAGE); 
-             return;
-        }
-        
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
         Formation form = tblFormationModel.getFormation(tblFormations.getSelectedRow());
         
         try {
@@ -429,42 +432,9 @@ public class Main extends javax.swing.JFrame implements StagiaireForm.StagiaireF
         } catch (JRException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_menuRapportResultECFActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Main().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem MenuItemAbout;
@@ -473,8 +443,10 @@ public class Main extends javax.swing.JFrame implements StagiaireForm.StagiaireF
     private javax.swing.JButton btnAjoutFormation;
     private javax.swing.JButton btnAjoutStagiaire;
     private javax.swing.JButton btnMajStagiaire;
+    private javax.swing.JButton jButton1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -484,10 +456,8 @@ public class Main extends javax.swing.JFrame implements StagiaireForm.StagiaireF
     private javax.swing.JLabel lblDateFin;
     private javax.swing.JLabel lblNom;
     private javax.swing.JMenuBar menu;
-    private javax.swing.JMenu menuEtat;
     private javax.swing.JMenu menuFile;
     private javax.swing.JMenuItem menuFileFermer;
-    private javax.swing.JMenuItem menuRapportResultECF;
     private javax.swing.JPanel panelFooter;
     private javax.swing.JPanel panelFormDetailsActions;
     private javax.swing.JPanel panelFormDetailsFields;

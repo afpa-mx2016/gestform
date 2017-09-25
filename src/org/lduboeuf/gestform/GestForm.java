@@ -5,12 +5,7 @@
  */
 package org.lduboeuf.gestform;
 
-
-import java.util.ArrayList;
-import java.util.List;
-import org.lduboeuf.gestform.model.Formation;
-import org.lduboeuf.gestform.model.Personne;
-import org.lduboeuf.gestform.model.Stagiaire;
+import org.lduboeuf.gestform.ui.Main;
 
 /**
  *
@@ -22,46 +17,35 @@ public class GestForm {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        Personne p1 = new Personne(1,"Trubadu", "Jean Claude");
-        Personne p3 = new Personne(2,"Gertrude", "Albert");
-        
-        if (p1==p3){
-            System.out.println("kikou");
+       /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        
-        if (p1.equals(p3)){
-            System.out.println("kikou equals");
-        }
-        
-        
-        Personne p2 = new Personne();
-        p2.setNom("Tardito");
-        p2.setPrenom("Balui");
-        
-        Formation form = new Formation("DL16","Développeur Logiciel");
-        Stagiaire p4 = new Stagiaire(8,"Popole", "Marcel", "CA999", form);
-      
-        form.getStagiaires().add(p4);
-        
-        
-        
-        List<Personne> persons = new ArrayList<>();
-        persons.add(p1);
-        persons.add(p2);
-        persons.add(p2);
-        persons.add(p4);
-      
-        
-        for (Personne p: persons){
-            System.out.println(p);
-        }
-        
-        
-        
-        
-        
-        
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Main().setVisible(true);
+            }
+        });
     }
     
 }

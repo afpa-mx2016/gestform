@@ -19,7 +19,7 @@ import org.lduboeuf.gestform.model.Formation;
  *
  * @author lionel
  */
-public class FormationDAO{
+public class FormationDAO{  
 
 
     public static List<Formation> findAll() {
