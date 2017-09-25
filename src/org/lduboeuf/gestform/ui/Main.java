@@ -103,6 +103,7 @@ public class Main extends javax.swing.JFrame implements StagiaireForm.StagiaireF
         tblECFModel.addRow(new ECF(-1, "", formation)); //ajout d'un faux ECF pour permettre l'ajout depuis la liste
 
         btnAjoutStagiaire.setEnabled(true);
+        panelFormationDetails.setVisible(true);
         panelFormationDetails.setEnabled(true);
     }
     
