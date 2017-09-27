@@ -9,13 +9,13 @@ package org.lduboeuf.gestform.model;
  *
  * @author lionel
  */
-public class ECF {
+public class Module {
     
     int id;
     String name;
     Formation formation;
 
-    public ECF(int id, String name, Formation formation) {
+    public Module(int id, String name, Formation formation) {
         this.id = id;
         this.name = name;
         this.formation = formation;

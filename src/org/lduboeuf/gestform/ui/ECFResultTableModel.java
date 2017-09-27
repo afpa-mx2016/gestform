@@ -11,7 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
 import org.lduboeuf.gestform.model.ResultECF;
-import org.lduboeuf.gestform.model.dao.ECFDAO;
+import org.lduboeuf.gestform.model.dao.ModuleDAO;
 
 /**
  *
@@ -62,7 +62,7 @@ public class ECFResultTableModel extends AbstractTableModel{
         switch (columnIndex) {
 
             case 0:
-                return ecfs.get(rowIndex).getEcf().getName();
+                return ecfs.get(rowIndex).getModule().getName();
 
             case 1:
                 return new Date(); //TODO
@@ -84,7 +84,7 @@ public class ECFResultTableModel extends AbstractTableModel{
             ecf.setAcquis(((Boolean)aValue).booleanValue());
             try {
                 //update database
-                ECFDAO.update(ecf);
+                ModuleDAO.update(ecf);
                 fireTableCellUpdated(rowIndex, columnIndex);// notify listeners
                 
             } catch (Exception ex) {

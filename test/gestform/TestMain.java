@@ -9,7 +9,7 @@ package gestform;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.lduboeuf.gestform.model.dao.ECFDAO;
+import org.lduboeuf.gestform.model.dao.ModuleDAO;
 import org.lduboeuf.gestform.model.dao.FormationDAO;
 import org.lduboeuf.gestform.model.dao.StagiaireDAO;
 import org.lduboeuf.gestform.model.Formation;
@@ -52,7 +52,7 @@ public class TestMain {
                 
        // ECF ecf = new ECF(1,"Developpement Web", formation); 
         
-        ECFDAO ecfDAO = new ECFDAO();
+        ModuleDAO ecfDAO = new ModuleDAO();
         List<ResultECF> ecfs = ecfDAO.findAll(s);
         for (ResultECF res: ecfs){
             System.out.println(res);

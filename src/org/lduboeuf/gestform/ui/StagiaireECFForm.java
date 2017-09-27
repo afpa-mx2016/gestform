@@ -6,7 +6,7 @@
 package org.lduboeuf.gestform.ui;
 
 import org.lduboeuf.gestform.model.Stagiaire;
-import org.lduboeuf.gestform.model.dao.ECFDAO;
+import org.lduboeuf.gestform.model.dao.ModuleDAO;
 import org.lduboeuf.gestform.model.dao.StagiaireDAO;
 
 /**
@@ -24,7 +24,7 @@ public class StagiaireECFForm extends javax.swing.JDialog {
         
         //init données
         //model
-        ecfTableModel = new ECFResultTableModel(ECFDAO.findAll(stag));
+        ecfTableModel = new ECFResultTableModel(ModuleDAO.findAll(stag));
         
         
         initComponents();

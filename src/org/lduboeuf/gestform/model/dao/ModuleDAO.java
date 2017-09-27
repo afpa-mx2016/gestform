@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import org.lduboeuf.gestform.model.ECF;
+import org.lduboeuf.gestform.model.Module;
 import org.lduboeuf.gestform.model.Formation;
 import org.lduboeuf.gestform.model.ResultECF;
 import org.lduboeuf.gestform.model.Stagiaire;
@@ -20,7 +20,7 @@ import org.lduboeuf.gestform.model.Stagiaire;
  *
  * @author lionel
  */
-public class ECFDAO {
+public class ModuleDAO {
     
     
     public static List<ResultECF> findAll(Stagiaire s){
@@ -30,14 +30,14 @@ public class ECFDAO {
         List<ResultECF> res_ecf = new ArrayList<>();
         PreparedStatement stm;
         try {
-            stm = connection.prepareStatement("select * from result_ecf INNER JOIN ecf ON result_ecf.ecf_id = ecf.id WHERE stagiaire_code = ?");
+            stm = connection.prepareStatement("select * from result_ecf INNER JOIN module ON result_ecf.module_id = module.id WHERE stagiaire_code = ?");
             stm.setString(1, s.getCodeStagiaire());
             
             ResultSet rs = stm.executeQuery();
 
             while (rs.next()) {
                 
-                ECF ecf = new ECF(rs.getInt("id"), rs.getString("nom"), s.getFormation());
+                Module ecf = new Module(rs.getInt("id"), rs.getString("nom"), s.getFormation());
                 ResultECF ecfRes = new ResultECF(ecf, s, rs.getBoolean("acquis"));
                 
                 res_ecf.add(ecfRes);
@@ -45,39 +45,39 @@ public class ECFDAO {
             rs.close();
 
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
 
         return res_ecf;
         
     }
     
-    public static List<ECF> findAll(Formation f){
+    public static List<Module> findAll(Formation f){
         
         Connection connection = ConnectDB.getConnection();
         
-        List<ECF> ecfs = new ArrayList<>();
+        List<Module> modules = new ArrayList<>();
         PreparedStatement stm;
         try {
-            stm = connection.prepareStatement("select * from ecf WHERE formation_code = ?");
+            stm = connection.prepareStatement("select * from module WHERE formation_code = ?");
             stm.setString(1, f.getCode());
             
             ResultSet rs = stm.executeQuery();
 
             while (rs.next()) {
                 
-                ECF ecf = new ECF(rs.getInt("id"), rs.getString("nom"), f);
+                Module module = new Module(rs.getInt("id"), rs.getString("nom"), f);
                 
                 
-                ecfs.add(ecf);
+                modules.add(module);
             }
             rs.close();
 
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
 
-        return ecfs;
+        return modules;
         
     }
     
@@ -86,10 +86,10 @@ public class ECFDAO {
         
     }
     
-    public static void save(ECF ecf) throws Exception{
+    public static void save(Module module) throws Exception{
         
-        if (ecf.getId()>0){ //update mode
-            update(ecf);
+        if (module.getId()>0){ //update mode
+            update(module);
             return;
         }
         
@@ -98,9 +98,9 @@ public class ECFDAO {
         PreparedStatement stm;
         try {
 
-            stm = connection.prepareStatement("INSERT INTO ecf (nom, formation_code) VALUES ( ?, ?);");
-            stm.setString(1, ecf.getName());
-            stm.setString(2, ecf.getFormation().getCode());
+            stm = connection.prepareStatement("INSERT INTO module (nom, formation_code) VALUES ( ?, ?);");
+            stm.setString(1, module.getName());
+            stm.setString(2, module.getFormation().getCode());
 
             
             stm.execute();
@@ -110,19 +110,19 @@ public class ECFDAO {
         } catch (SQLException e) {
             
             
-            throw new Exception("error while creating ecf " + e.getMessage());
+            throw new Exception("error while creating module " + e.getMessage());
         }
     }
     
-    private static void update(ECF ecf) throws Exception{
+    private static void update(Module module) throws Exception{
         Connection connection = ConnectDB.getConnection();
 
         PreparedStatement stm;
         try {
 
-            stm = connection.prepareStatement("UPDATE ecf SET nom = ? WHERE id = ?;");
-            stm.setString(1, ecf.getName());
-            stm.setInt(2, ecf.getId());
+            stm = connection.prepareStatement("UPDATE module SET nom = ? WHERE id = ?;");
+            stm.setString(1, module.getName());
+            stm.setInt(2, module.getId());
             
 
             stm.execute();
@@ -132,7 +132,7 @@ public class ECFDAO {
         } catch (SQLException e) {
             
             
-            throw new Exception("error while updating ecf " + e.getMessage());
+            throw new Exception("error while updating module " + e.getMessage());
         }
     }
     
@@ -142,10 +142,10 @@ public class ECFDAO {
         PreparedStatement stm;
         try {
 
-            stm = connection.prepareStatement("UPDATE result_ecf SET acquis = ? WHERE stagiaire_code = ? AND ecf_id = ?;");
+            stm = connection.prepareStatement("UPDATE result_ecf SET acquis = ? WHERE stagiaire_code = ? AND module_id = ?;");
             stm.setBoolean(1, resECF.isAcquis());
             stm.setString(2, resECF.getStagiaire().getCodeStagiaire());
-            stm.setInt(3, resECF.getEcf().getId());
+            stm.setInt(3, resECF.getModule().getId());
             
 
             stm.execute();

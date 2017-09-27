@@ -15,7 +15,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import org.lduboeuf.gestform.model.Formation;
 import org.lduboeuf.gestform.model.Stagiaire;
-import org.lduboeuf.gestform.model.dao.ECFDAO;
 import org.lduboeuf.gestform.model.dao.StagiaireDAO;
 
 /**
@@ -37,6 +36,7 @@ public class StagiaireForm extends javax.swing.JDialog implements FocusListener 
         this.listener = listener;
         this.currentFormation = formation;
         
+
 
         txtNom.addFocusListener(this);
         txtPrenom.addFocusListener(this);

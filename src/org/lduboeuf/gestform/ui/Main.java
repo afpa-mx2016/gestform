@@ -21,11 +21,11 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.swing.JRViewer;
-import org.lduboeuf.gestform.model.ECF;
+import org.lduboeuf.gestform.model.Module;
 import org.lduboeuf.gestform.model.Formation;
 import org.lduboeuf.gestform.model.Stagiaire;
 import org.lduboeuf.gestform.model.dao.ConnectDB;
-import org.lduboeuf.gestform.model.dao.ECFDAO;
+import org.lduboeuf.gestform.model.dao.ModuleDAO;
 import org.lduboeuf.gestform.model.dao.FormationDAO;
 import org.lduboeuf.gestform.model.dao.StagiaireDAO;
 
@@ -99,8 +99,8 @@ public class Main extends javax.swing.JFrame implements StagiaireForm.StagiaireF
         listStagiairesModel.setModel(StagiaireDAO.findAll(formation));
 
         
-        tblECFModel.setModel(ECFDAO.findAll(formation));
-        tblECFModel.addRow(new ECF(-1, "", formation)); //ajout d'un faux ECF pour permettre l'ajout depuis la liste
+        tblECFModel.setModel(ModuleDAO.findAll(formation));
+        tblECFModel.addRow(new Module(-1, "", formation)); //ajout d'un faux ECF pour permettre l'ajout depuis la liste
 
         btnAjoutStagiaire.setEnabled(true);
         panelFormationDetails.setVisible(true);
@@ -250,7 +250,7 @@ public class Main extends javax.swing.JFrame implements StagiaireForm.StagiaireF
 
         panelFormationDetails.add(panelFormDetailsActions);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("ECF"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Modules"));
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.Y_AXIS));
 
         jScrollPane3.setBorder(null);
@@ -419,6 +419,7 @@ public class Main extends javax.swing.JFrame implements StagiaireForm.StagiaireF
             report.setProperty("net.sf.jasperreports.default.font.name=SansSerif", "true");
             HashMap<String, Object> params = new HashMap<>();
             params.put("formation_code", form.getCode());
+            params.put("formation_nom", form.getNom());
             
             JasperPrint jPrint = JasperFillManager.fillReport(report, params, ConnectDB.getConnection());
             

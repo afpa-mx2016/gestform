@@ -13,12 +13,12 @@ package org.lduboeuf.gestform.model;
  */
 public class ResultECF {
     
-    ECF ecf;
+    Module module;
     Stagiaire stagiaire;
     boolean acquis;
 
-    public ResultECF(ECF ecf, Stagiaire stagiaire, boolean acquis) {
-        this.ecf = ecf;
+    public ResultECF(Module module, Stagiaire stagiaire, boolean acquis) {
+        this.module = module;
         this.stagiaire = stagiaire;
         this.acquis = acquis;
     }
@@ -26,12 +26,12 @@ public class ResultECF {
     
     
 
-    public ECF getEcf() {
-        return ecf;
+    public Module getModule() {
+        return module;
     }
 
-    public void setEcf(ECF ecf) {
-        this.ecf = ecf;
+    public void setModule(Module module) {
+        this.module = module;
     }
 
     public Stagiaire getStagiaire() {
@@ -54,7 +54,7 @@ public class ResultECF {
 
     @Override
     public String toString() {
-        return "ResultECF{" + "ecf=" + ecf + ", stagiaire=" + stagiaire + ", acquis=" + acquis + '}';
+        return "ResultECF{" + "ecf=" + module + ", stagiaire=" + stagiaire + ", acquis=" + acquis + '}';
     }
     
     

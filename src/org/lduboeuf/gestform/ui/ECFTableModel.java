@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
-import org.lduboeuf.gestform.model.ECF;
-import org.lduboeuf.gestform.model.dao.ECFDAO;
+import org.lduboeuf.gestform.model.Module;
+import org.lduboeuf.gestform.model.dao.ModuleDAO;
 
 /**
  *
@@ -19,13 +19,13 @@ import org.lduboeuf.gestform.model.dao.ECFDAO;
 public class ECFTableModel extends AbstractTableModel {
 
     private final String[] entetes = {"Nom"};
-    private List<ECF> ecfs;
+    private List<Module> ecfs;
 
-    public ECFTableModel(List<ECF> ecfs) {
+    public ECFTableModel(List<Module> ecfs) {
         this.ecfs = ecfs;
     }
 
-    public void setModel(List<ECF> ecfs) {
+    public void setModel(List<Module> ecfs) {
         this.ecfs = ecfs;
         fireTableDataChanged();
     }
@@ -50,7 +50,7 @@ public class ECFTableModel extends AbstractTableModel {
         return true;
     }
 
-    public void addRow(ECF ecf) {
+    public void addRow(Module ecf) {
         ecfs.add(ecf);
         fireTableRowsInserted(ecfs.size() - 1, ecfs.size() - 1);
     }
@@ -58,13 +58,13 @@ public class ECFTableModel extends AbstractTableModel {
     //methode appellée chaque fois qu'une modification a lieu dans le tableau
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        ECF ecf = ecfs.get(rowIndex);
+        Module ecf = ecfs.get(rowIndex);
         if (columnIndex == 0) {
             String nom = (String) aValue;
             if (nom.length() > 0) {
                 ecf.setName(nom);
                 try {
-                    ECFDAO.save(ecf);
+                    ModuleDAO.save(ecf);
                     fireTableCellUpdated(rowIndex, columnIndex);// notify listeners
 
                 } catch (Exception ex) {
@@ -87,7 +87,7 @@ public class ECFTableModel extends AbstractTableModel {
         return getValueAt(0, columnIndex).getClass();
     }
 
-    public ECF getECF(int rowIndex) {
+    public Module getECF(int rowIndex) {
         return ecfs.get(rowIndex);
     }
 
