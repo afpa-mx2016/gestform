@@ -39,7 +39,7 @@ public class Main extends javax.swing.JFrame implements StagiaireForm.StagiaireF
 
     FormationTableModel tblFormationModel;
     StagiairesTableModel listStagiairesModel;
-    ECFTableModel tblECFModel;
+    ModuleTableModel tblECFModel;
     
     Formation selectedFormation;
     /**
@@ -49,7 +49,7 @@ public class Main extends javax.swing.JFrame implements StagiaireForm.StagiaireF
         
         tblFormationModel = new FormationTableModel(FormationDAO.findAll());
         listStagiairesModel = new StagiairesTableModel(new ArrayList<>()); //pas de stagiaires par défaut
-        tblECFModel = new ECFTableModel(new ArrayList<>()); //pas d'ecf par défaut
+        tblECFModel = new ModuleTableModel(new ArrayList<>()); //pas d'ecf par défaut
 
         
         initComponents();

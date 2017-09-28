@@ -16,17 +16,17 @@ import org.lduboeuf.gestform.model.dao.ModuleDAO;
  *
  * @author lionel
  */
-public class ECFTableModel extends AbstractTableModel {
+public class ModuleTableModel extends AbstractTableModel {
 
     private final String[] entetes = {"Nom"};
-    private List<Module> ecfs;
+    private List<Module> modules;
 
-    public ECFTableModel(List<Module> ecfs) {
-        this.ecfs = ecfs;
+    public ModuleTableModel(List<Module> modules) {
+        this.modules = modules;
     }
 
-    public void setModel(List<Module> ecfs) {
-        this.ecfs = ecfs;
+    public void setModel(List<Module> modules) {
+        this.modules = modules;
         fireTableDataChanged();
     }
 
@@ -37,7 +37,7 @@ public class ECFTableModel extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        return ecfs.size();
+        return modules.size();
     }
 
     @Override
@@ -50,25 +50,25 @@ public class ECFTableModel extends AbstractTableModel {
         return true;
     }
 
-    public void addRow(Module ecf) {
-        ecfs.add(ecf);
-        fireTableRowsInserted(ecfs.size() - 1, ecfs.size() - 1);
+    public void addRow(Module module) {
+        modules.add(module);
+        fireTableRowsInserted(modules.size() - 1, modules.size() - 1);
     }
 
     //methode appellée chaque fois qu'une modification a lieu dans le tableau
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        Module ecf = ecfs.get(rowIndex);
+        Module module = modules.get(rowIndex);
         if (columnIndex == 0) {
             String nom = (String) aValue;
             if (nom.length() > 0) {
-                ecf.setName(nom);
+                module.setName(nom);
                 try {
-                    ModuleDAO.save(ecf);
+                    ModuleDAO.save(module);
                     fireTableCellUpdated(rowIndex, columnIndex);// notify listeners
 
                 } catch (Exception ex) {
-                    Logger.getLogger(ECFTableModel.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ModuleTableModel.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
 
@@ -88,7 +88,7 @@ public class ECFTableModel extends AbstractTableModel {
     }
 
     public Module getECF(int rowIndex) {
-        return ecfs.get(rowIndex);
+        return modules.get(rowIndex);
     }
 
     @Override
@@ -96,7 +96,7 @@ public class ECFTableModel extends AbstractTableModel {
         switch (columnIndex) {
 
             case 0:
-                return ecfs.get(rowIndex).getName();
+                return modules.get(rowIndex).getName();
 
             default:
                 throw new IllegalArgumentException();

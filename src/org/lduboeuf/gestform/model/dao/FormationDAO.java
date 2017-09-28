@@ -106,8 +106,8 @@ public class FormationDAO{
         } catch (SQLException e) {
             
             //pb if here
-            connection.rollback();
-            
+            //connection.rollback();
+            e.printStackTrace();
             
             throw new Exception("error while creating formation " + e.getMessage());
         }
