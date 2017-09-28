@@ -83,8 +83,34 @@ public class FormationDAO{
     }
 
 
-    public void save(Formation t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public static void save(Formation f) throws Exception {
+        
+        Connection connection = ConnectDB.getConnection();
+
+        PreparedStatement stm;
+
+        try {
+
+            stm = connection.prepareStatement("INSERT INTO formation (code, nom, date_debut, date_fin) VALUES(?, ?, ?, ?);");
+            stm.setString(1, f.getCode());
+            stm.setString(2, f.getNom());
+            stm.setDate(3, new java.sql.Date(f.getDateDebut().getTime()));
+            stm.setDate(4, new java.sql.Date(f.getDateFin().getTime()));
+
+
+            stm.execute();
+
+         
+            stm.close();
+
+        } catch (SQLException e) {
+            
+            //pb if here
+            connection.rollback();
+            
+            
+            throw new Exception("error while creating formation " + e.getMessage());
+        }
     }
 
 

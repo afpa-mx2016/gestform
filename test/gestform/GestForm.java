@@ -7,10 +7,14 @@ package gestform;
 
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.lduboeuf.gestform.model.Formation;
 import org.lduboeuf.gestform.model.Personne;
 import org.lduboeuf.gestform.model.Stagiaire;
+import org.lduboeuf.gestform.model.dao.FormationDAO;
 
 /**
  *
@@ -58,6 +62,26 @@ public class GestForm {
         }
         
         
+        
+        Formation f = new Formation("RX111", "dev++");
+        
+        Calendar caldeb = Calendar.getInstance();
+        caldeb.set(2017, 3, 12);
+        
+        Calendar calfin = Calendar.getInstance();
+        calfin.set(2017, 11, 12);
+        
+                
+                //.set(2017, 3, 12);
+        f.setDateDebut(caldeb.getTime());
+        f.setDateFin(calfin.getTime());
+        
+        
+        try {
+            FormationDAO.save(f);
+        } catch (Exception ex) {
+            Logger.getLogger(GestForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         
         

@@ -8,6 +8,7 @@ package org.lduboeuf.gestform.ui;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -105,6 +106,11 @@ public class Main extends javax.swing.JFrame implements StagiaireForm.StagiaireF
         btnAjoutStagiaire.setEnabled(true);
         panelFormationDetails.setVisible(true);
         panelFormationDetails.setEnabled(true);
+    }
+    
+    private void saveFormation(){
+        
+     //TODO
     }
     
     private void clearFormationDetails(){
