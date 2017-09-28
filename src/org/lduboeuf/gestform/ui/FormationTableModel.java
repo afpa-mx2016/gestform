@@ -8,6 +8,7 @@ package org.lduboeuf.gestform.ui;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import org.lduboeuf.gestform.model.Formation;
+import org.lduboeuf.gestform.model.Stagiaire;
 
 /**
  *
@@ -20,6 +21,11 @@ public class FormationTableModel extends AbstractTableModel {
 
     public FormationTableModel(List<Formation> formations) {
         this.formations = formations;
+    }
+    
+     public void addFormation(Formation form){
+        this.formations.add(form);
+        this.fireTableDataChanged();
     }
 
     @Override

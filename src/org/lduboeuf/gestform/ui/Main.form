@@ -190,14 +190,14 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblDateDeb">
               <Properties>
-                <Property name="text" type="java.lang.String" value="date d&#xe9;but:"/>
+                <Property name="text" type="java.lang.String" value="date d&#xe9;but: [jj/mm/aaaa]"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtDateDeb">
             </Component>
             <Component class="javax.swing.JLabel" name="lblDateFin">
               <Properties>
-                <Property name="text" type="java.lang.String" value="date fin:"/>
+                <Property name="text" type="java.lang.String" value="date fin:[jj/mm/aaaa]"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtDateFin">

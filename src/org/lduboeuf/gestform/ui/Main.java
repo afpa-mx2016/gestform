@@ -6,6 +6,7 @@
 package org.lduboeuf.gestform.ui;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -109,6 +110,37 @@ public class Main extends javax.swing.JFrame implements StagiaireForm.StagiaireF
     }
     
     private void saveFormation(){
+        
+        //TODO controle des champs
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        
+        
+        Formation f = new Formation(txtCode.getText(), txtNom.getText());
+        
+        try {
+            Date datedeb = df.parse(txtDateDeb.getText());
+            Date datefin = df.parse(txtDateFin.getText());
+            
+            
+            f.setDateDebut(datedeb);
+            f.setDateFin(datefin);
+            
+            FormationDAO.save(f);
+            
+            //update model
+            tblFormationModel.addFormation(f);
+            
+            
+        } catch (ParseException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            
+            
+            JOptionPane.showMessageDialog(null, "humm pb lors de la creation, doublons, pb de champs, ? pas eu encore le temps de gérer le controle des formulaires, ni l'update... ", "selection stagiaire", JOptionPane.INFORMATION_MESSAGE); 
+
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         
      //TODO
     }
@@ -231,11 +263,11 @@ public class Main extends javax.swing.JFrame implements StagiaireForm.StagiaireF
         });
         panelFormDetailsFields.add(txtNom);
 
-        lblDateDeb.setText("date début:");
+        lblDateDeb.setText("date début: [jj/mm/aaaa]");
         panelFormDetailsFields.add(lblDateDeb);
         panelFormDetailsFields.add(txtDateDeb);
 
-        lblDateFin.setText("date fin:");
+        lblDateFin.setText("date fin:[jj/mm/aaaa]");
         panelFormDetailsFields.add(lblDateFin);
 
         txtDateFin.setToolTipText("");
@@ -375,6 +407,10 @@ public class Main extends javax.swing.JFrame implements StagiaireForm.StagiaireF
 
     private void btnActionFormDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActionFormDetailActionPerformed
         // TODO add your handling code here:
+        //TODO gérer la mise à jour
+        
+        saveFormation();
+        
     }//GEN-LAST:event_btnActionFormDetailActionPerformed
 
     private void btnAjoutFormationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAjoutFormationActionPerformed
